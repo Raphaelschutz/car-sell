@@ -1,1 +1,89 @@
-<p>salut beau gosse!</p>
+<div class="container py-5">
+  <!-- Première section pour créer une annonce -->
+  <div class="row mb-5">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+      <div class="bg-white shadow rounded p-4">
+        <h1 class="display-6 text-dark">Créer une annonce</h1>
+        <hr class="bg-dark mb-5">
+
+        <!-- Formulaire pour créer ou modifier une annonce -->
+        <form [formGroup]="offerForm" (ngSubmit)="onSubmitOfferForm()">
+          <!-- Champ caché pour l'index (utile en cas de modification) -->
+          <input type="number" formControlName="index" hidden>
+
+          <!-- Champ pour le titre de l'annonce -->
+          <div class="form-group mb-3">
+            <label for="offerTitleInput">Titre</label>
+            <input type="text" formControlName="title" id="offerTitleInput" class="form-control">
+          </div>
+
+          <!-- Champ pour la marque de la voiture -->
+          <div class="form-group mb-3">
+            <label for="offerBrandInput">Marque</label>
+            <input type="text" formControlName="brand" id="offerBrandInput" class="form-control">
+          </div>
+
+          <!-- Champ pour le modèle de la voiture -->
+          <div class="form-group mb-3">
+            <label for="offerModelInput">Modéle</label>
+            <input type="text" formControlName="model" id="offerModelInput" class="form-control">
+          </div>
+
+          <!-- Champ pour la description de l'annonce -->
+          <div class="form-group mb-3">
+            <label for="offerDescriptionInput">Description</label>
+            <textarea formControlName="description" class="w-100 form-control" rows="5" id="offerDescriptionInput"></textarea>
+          </div>
+
+          <!-- Champ pour le prix de la voiture -->
+          <div class="form-group mb-3">
+            <label for="offerPriceInput">Prix</label>
+            <input type="number" formControlName="price" id="offerPriceInput" class="form-control">
+          </div>
+
+          <!-- Bouton pour soumettre le formulaire -->
+          <div class="d-flex">
+            <button type="submit" class="btn btn-success mx-auto" [disabled]="offerForm.invalid">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deuxième section pour afficher les annonces enregistrées -->
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <div class="bg-white shadow p-4 rounded">
+        <h1 class="display-6 text-dark">Annonce Enregistrer</h1>
+        <hr class="mb-5 bg-dark">
+
+        <!-- Tableau pour afficher les annonces -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titre</th>
+              <th scope="col">Voiture</th>
+              <th scope="col">Prix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Boucle pour afficher chaque annonce -->
+            <tr *ngFor="let offer of offers; let i = index">
+              <th>{{i + 1}}</th>
+              <td>{{offer.title}}</td>
+              <td>{{offer.brand}} {{offer.model}}</td>
+              <td>{{offer.price}}</td>
+
+              <!-- Bouton pour modifier une annonce -->
+              <td><button class="btn btn-primary" type="button" (click)="onEditOffer(offer, i)">Modifier</button></td>
+
+              <!-- Bouton pour supprimer une annonce -->
+              <td><button class="btn btn-danger" type="button" (click)="onDeleteOffer(i)">Supprimer</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
